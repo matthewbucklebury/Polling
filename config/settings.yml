@@ -1,0 +1,35 @@
+# App and metric settings. The friction score weighting is deliberately transparent:
+# each component is a percentile rank (0-100) across active English authorities on
+# rolling-annual (4Q) values; higher always means more friction. Weights renormalise
+# when a component is missing for an authority.
+
+friction_score:
+  components:
+    approval_rate_major_res:
+      weight: 0.40
+      direction: inverse          # low approval rate on major residential = high friction
+      min_denominator: 10         # need >= 10 major residential decisions in the 4Q window
+      label: Major residential approval rate
+    pct_intime_statutory_major:
+      weight: 0.30
+      direction: inverse          # slow decisions (excluding agreed extensions) = high friction
+      min_denominator: 10
+      label: Major decisions within statutory 13 weeks (agreements excluded)
+    overturn_rate:
+      weight: 0.30
+      direction: direct           # losing appeals = refusing things inspectors allow
+      min_denominator: 8          # need >= 8 appeals decided in the 4Q window
+      label: Appeals overturn rate
+
+league_tables:
+  # Default minimum denominators so tiny volumes do not produce absurd rankings.
+  min_decisions_4q: 20            # for approval/speed metrics
+  min_major_4q: 10                # for major / major residential metrics
+  min_appeals_4q: 8               # for appeal metrics
+
+app:
+  # First quarter shown in the UI (data exists earlier but development-type detail
+  # and speed data are sparse before this).
+  display_from_quarter: "2004Q2"
+  host: 127.0.0.1
+  port: 8000

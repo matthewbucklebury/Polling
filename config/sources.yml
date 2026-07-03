@@ -1,0 +1,58 @@
+# Source URLs. gov.uk asset URLs change with every quarterly release: update the
+# `url` fields here (see README "Quarterly rerun"), nothing else should need to change.
+# Landing pages are recorded so you can find the new asset URLs quickly.
+
+mhclg_applications:
+  landing: https://www.gov.uk/government/statistical-data-sets/live-tables-on-planning-application-statistics
+  files:
+    ps1:
+      url: https://assets.publishing.service.gov.uk/media/6a33df3ae590e5e061c9a252/PS1_data_-_open_data_table__202603_.csv
+      filename: PS1_open_data.csv
+      description: District matters PS1 open data (applications received/decided/withdrawn by LPA and quarter)
+    ps2:
+      url: https://assets.publishing.service.gov.uk/media/6a33df4c6422bec01b117793/PS2_data_-_open_data_table__202603_.csv
+      filename: PS2_open_data.csv
+      description: District matters PS2 open data (decisions, granted, refused, speed by development type)
+
+pins_appeals:
+  landing: https://www.gov.uk/government/publications/planning-inspectorate-appeals-database
+  files:
+    casework:
+      url: https://assets.publishing.service.gov.uk/media/6a32ac8e25c5199bda1176eb/Casework_Database_-_June_2026.xlsx
+      filename: PINS_casework.xlsx
+      sheet: Data Set
+      description: PINS appeals casework database (case level, current system)
+    casework_older:
+      url: https://assets.publishing.service.gov.uk/media/6a32ac8ec6e94f095f3ef97e/Older_Casework_Data_-_June_2026.xlsx
+      filename: PINS_casework_older.xlsx
+      sheet: Older Appeals Data
+      description: PINS older casework data (case level, legacy system)
+
+housing_delivery:
+  landing: https://www.gov.uk/government/statistical-data-sets/live-tables-on-net-supply-of-housing
+  files:
+    net_additions:
+      url: https://assets.publishing.service.gov.uk/media/691f395e9c8e8f345bf985d3/Live_Table_122.ods
+      filename: Live_Table_122.ods
+      description: Net additional dwellings by local authority district (Live Table 122)
+    hdt:
+      # Latest published measurement; check https://www.gov.uk/government/collections/housing-delivery-test
+      url: https://assets.publishing.service.gov.uk/media/6759ccfbad4694c785b0eddb/Housing_Delivery_Test_2023_measurement.ods
+      filename: Housing_Delivery_Test_2023_measurement.ods
+      description: Housing Delivery Test 2023 measurement
+
+authority_meta:
+  landing: https://geoportal.statistics.gov.uk/
+  files:
+    boundaries:
+      # LAD May 2024 boundaries (ultra generalised, BUC) joined to Rural-Urban Classification 2021.
+      # England-only filter applied in the query string.
+      url: "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD_MAY_2024_EW_BUC_RUC/FeatureServer/0/query?where=LAD24CD%20LIKE%20%27E%25%27&outFields=LAD24CD,LAD24NM,RUC21CD,RUC21NM,Urban_rura&outSR=4326&f=geojson"
+      filename: lad_boundaries_ruc.geojson
+      description: ONS LAD boundaries (generalised) with rural/urban classification
+    population:
+      # NOMIS mid-year population estimates, all ages, latest, England LADs. Optional - skipped on failure.
+      url: "https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=TYPE434&date=latest&gender=0&c_age=200&measures=20100&select=GEOGRAPHY_CODE,GEOGRAPHY_NAME,OBS_VALUE"
+      filename: population.csv
+      description: Mid-year population estimates by LAD (NOMIS)
+      optional: true

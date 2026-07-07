@@ -1,5 +1,9 @@
 # UK Planning Applications Tracker
 
+> **Continuing work on this project?** Read [`CLAUDE.md`](CLAUDE.md) and
+> [`docs/HANDOVER.md`](docs/HANDOVER.md) first. Operating it without coding?
+> Your manual is [`docs/OPERATOR-GUIDE.md`](docs/OPERATOR-GUIDE.md).
+
 A local-first web app that makes English local planning authority performance legible:
 **approval rates, decision speed, appeal outcomes and housing delivery — by authority and
 over time.** Python/FastAPI + SQLite backend, React frontend, and a separate CLI data

@@ -7,6 +7,7 @@ import LeaguePage from './pages/LeaguePage.jsx';
 import ComparePage from './pages/ComparePage.jsx';
 import TrendsPage from './pages/TrendsPage.jsx';
 import DictionaryPage from './pages/DictionaryPage.jsx';
+import AuthoritySearch from './components/AuthoritySearch.jsx';
 
 const MetaContext = createContext(null);
 export const useMeta = () => useContext(MetaContext);
@@ -44,7 +45,10 @@ export default function App() {
             {label}
           </NavLink>
         ))}
-        <span className="sub" style={{ marginLeft: 'auto' }}>England · data to {meta.latest_quarter}</span>
+        <span style={{ marginLeft: 'auto' }}>
+          <AuthoritySearch />
+        </span>
+        <span className="sub">England · data to {meta.latest_quarter}</span>
       </nav>
       <div className="page">
         {meta.sample_sources.length > 0 && (

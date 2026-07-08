@@ -1,6 +1,6 @@
 # HANDOVER — UK Planning Applications Tracker
 
-**Last updated: 2026-07-03 (Claude Fable 5 handover session — v1 complete and verified)**
+**Last updated: 2026-07-03 (Claude Sonnet 5 session — Task 02 complete)**
 
 This is the master document for continuing work. Read it at the start of every session,
 update it at the end of every session (see the session-close protocol in `CLAUDE.md`).
@@ -36,6 +36,10 @@ published anywhere today.
 - **All 33 automated tests pass** (`make test`): parser fixtures, reorganisation-chain
   mapping, rolling/ratio derivation maths, API smoke tests.
 - **Exports**: PNG + CSV per chart, league CSV, per-authority self-contained HTML report.
+- **Authority search box** in the top nav (Task 02, 2026-07-03): type ≥2 characters,
+  see up to 8 matches, click or Arrow+Enter to jump straight to that council's profile
+  from any page. Works with mouse and keyboard, closes on Escape/click-away, verified
+  at 375px width (own row, full width, nothing overlaps).
 - Reorganisation mapping (2009–2023 mergers, legacy pre-2009 codes by name), sample-data
   fallback with UI banner, PIPELINE_STATUS.md generation.
 
@@ -97,7 +101,7 @@ Ripple rules:
 |---|---|
 | M1 — Working tracker on real data, all pages, tests, docs | ✅ done (this session) |
 | M2 — Runs on Matt's MacBook; Matt can operate it alone | ⬜ Task 00, 01 |
-| M3 — Hardened & polished (search, HDT history, print/report polish) | ⬜ Tasks 02, 03, 05, 06, 10 |
+| M3 — Hardened & polished (search, HDT history, print/report polish) | 🟨 Task 02 ✅; 03, 05, 06, 10 pending |
 | M4 — Deeper analytics (appeal timeliness, targets, county matters) | ⬜ Tasks 04, 09, 11 |
 | M5 — Expansion (Wales scoping, DB slimming, hosting) | ⬜ Tasks 07, 08 (scoping only) |
 
@@ -105,9 +109,9 @@ Ripple rules:
 
 | # | Task | Priority | Model | Depends on |
 |---|---|---|---|---|
-| 00 | [First run on Matt's MacBook](tasks/00-first-run-on-mac.md) | MUST | Sonnet | — |
+| 00 | [First run on Matt's MacBook](tasks/00-first-run-on-mac.md) | MUST | Sonnet | — (still outstanding — see note below) |
 | 01 | [Quarterly data refresh drill](tasks/01-refresh-drill.md) | MUST | Sonnet | 00 |
-| 02 | [Authority search box in the top bar](tasks/02-authority-search.md) | SHOULD | Sonnet | 00 |
+| 02 | ~~[Authority search box in the top bar](tasks/02-authority-search.md)~~ | SHOULD | Sonnet | ✅ **done 2026-07-03** |
 | 03 | [Load HDT history 2018–2022](tasks/03-hdt-history.md) | SHOULD | Sonnet | 00 |
 | 04 | [Appeal decision-speed metric](tasks/04-appeal-timeliness-metric.md) | SHOULD | **Opus** | 00 |
 | 05 | [Shareable URLs for map & compare](tasks/05-shareable-urls.md) | COULD | Sonnet | 00 |
@@ -120,6 +124,13 @@ Ripple rules:
 
 If the four weeks run short: do 00 and 01, then whatever of 02/03 appeals — everything
 else is optional polish on an already-complete v1.
+
+**Note on Task 00**: this session (2026-07-03, Sonnet) ran in the same cloud
+environment as the original build, NOT on Matt's actual MacBook Air. Task 02 was
+completed and verified here, but Task 00 (first run on the real Mac) is still
+genuinely outstanding — it needs a session where Claude Code is actually running via
+Terminal on that physical machine. Don't assume it's done because other tasks have
+been.
 
 ## 6. Risk register
 
@@ -166,6 +177,22 @@ ignored or `git add` fails mid-pipeline with "unstable object source data").
 *(Newest first. Every session appends an entry: date, model, what was done, what was
 verified, recommended next step.)*
 
+- **2026-07-03 · Claude Sonnet 5 (Task 02).** Confirmed via user Q&A that this session
+  is a cloud environment, not Matt's actual MacBook — Task 00 remains outstanding (see
+  note in section 5). Built `frontend/src/components/AuthoritySearch.jsx` and mounted
+  it in `App.jsx`'s top nav per the brief. Verified: `make build` clean;
+  `node scripts/check_app.mjs` passed (6 pages × light/dark, no JS errors) and
+  screenshots inspected by eye; a follow-up scripted Playwright pass confirmed
+  click-to-navigate, Enter-to-navigate from a different page, ArrowDown+Enter selects
+  the *second* match (not just the first — checked against `/api/authorities` order),
+  Escape closes the dropdown, click-away closes the dropdown, and 375px width wraps to
+  its own full-width row with no overlap. `make test` → 33 passed. Fixed a real bug in
+  `scripts/check_app.mjs`'s own setup comment (it told you to `npm install` playwright
+  inside `frontend/`, but Node resolves `node_modules` by walking up from the script's
+  own folder, so that install is never found — corrected to install at the project
+  root). Added `scripts/screenshots/` to `.gitignore` (generated verification output,
+  not source). Next: Task 00 on the real MacBook, or continue with Task 03/05/06/10
+  (all cloud-session-friendly, no Mac dependency).
 - **2026-07-03 · Claude Fable 5 (handover session).** Audited repo (git clean, 2 commits
   pushed). Verified dark mode + 375px mobile rendering (screenshots, no JS errors).
   Confirmed Oxford HDT 1451% is faithful to the raw ODS (real quirk, not a bug). Added

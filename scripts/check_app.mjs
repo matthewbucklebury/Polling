@@ -3,11 +3,13 @@
  * screenshots it, and fails on any JavaScript error.
  *
  * Usage (app must already be running on http://127.0.0.1:8000):
- *   cd frontend && npm install --no-save playwright && cd ..
+ *   npm install --no-save playwright   (run from the PROJECT ROOT, not frontend/ —
+ *     Node resolves node_modules by walking up from this file's own folder, so an
+ *     install inside frontend/ is never found here)
  *   node scripts/check_app.mjs
  *
  * In Claude Code remote sessions Chromium is pre-installed at /opt/pw-browsers/chromium.
- * On a Mac, run `cd frontend && npx playwright install chromium` once first.
+ * On a Mac, run `npx playwright install chromium` once first (also from the project root).
  * Screenshots land in scripts/screenshots/ — look at them; the check only proves
  * "no JS errors", not "looks right".
  */
